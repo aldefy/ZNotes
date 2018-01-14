@@ -17,7 +17,7 @@ class FABScrollMagicHelper(context: Context, attrs: AttributeSet) : FloatingActi
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
 
         if (dyConsumed > 0 && child.visibility == View.VISIBLE) {
-            child.hide()
+            child.invisible()
         } else if (dyConsumed < 0 && child.visibility != View.VISIBLE) {
             child.show()
         }

@@ -13,9 +13,12 @@ import android.tech.znotes.R
 import android.tech.znotes.ViewModelFactory
 import android.tech.znotes.data.Note
 import android.tech.znotes.feature.NoteViewModel
+import android.tech.znotes.helpers.colorFilter
+import android.tech.znotes.helpers.greyFilter
 import android.tech.znotes.helpers.loadUrl
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.widget.Toast
 import com.vansuita.pickimage.bean.PickResult
 import com.vansuita.pickimage.bundle.PickSetup
@@ -53,15 +56,21 @@ class NotesDetailsActivity : AppCompatActivity(), IPickResult {
             intent.extras.getParcelable("note")
         } else
             Note()
+        photoUploadedUrl = note.photoPath
     }
 
     lateinit var progressDialog: Dialog
     private lateinit var photoUploadedUrl: String
+    private var isImageEdited = false
 
     private fun initViews() {
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
             setHomeButtonEnabled(true)
+            title = if (note.title.isBlank())
+                getString(R.string.add_note)
+            else
+                getString(R.string.edit_note)
             setDisplayHomeAsUpEnabled(true)
         }
         progressDialog = Dialog(this@NotesDetailsActivity, R.style.ProgressDialog)
@@ -69,17 +78,23 @@ class NotesDetailsActivity : AppCompatActivity(), IPickResult {
         progressDialog.setContentView(layoutInflater.inflate(R.layout.layout_progress_fullscreen, null))
         progressDialog.setCanceledOnTouchOutside(false)
         progressDialog.setCancelable(false)
-
-        photoUploadedUrl = ""
         etNoteTitle.setText(note.title)
         etNoteContent.setText(note.note)
         etNoteContent.setSelection(note.note.length)
         etNoteTitle.setSelection(note.title.length)
         if (note.photoPath.isNotBlank())
             ivNotePhoto.loadUrl(note.photoPath)
+        ivNotePhoto.colorFilter()
+        ivNotePhoto.setOnTouchListener { _, motionEvent ->
+            if (motionEvent.action != MotionEvent.ACTION_DOWN) {
+                ivNotePhoto.colorFilter()
+            } else
+                ivNotePhoto.greyFilter()
+            true
+        }
         ivNotePhoto.isDrawingCacheEnabled = true
         btnSave.setOnClickListener {
-            if (!note.photoPath.contains("http")) {
+            if (isImageEdited) {
                 if (ivNotePhoto.drawable != null) {
                     ivNotePhoto.buildDrawingCache()
                     val bitmap = ivNotePhoto.drawingCache
@@ -132,26 +147,51 @@ class NotesDetailsActivity : AppCompatActivity(), IPickResult {
 
     override fun onPickResult(r: PickResult?) {
         r?.error?.let {
+            isImageEdited = false
             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show();
         }
         r?.bitmap?.let {
+            isImageEdited = true
             ivNotePhoto.setImageBitmap(it)
         }
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            deleteMenuItem.isVisible = note.title.isNotBlank()
+        }
+        return true
+    }
+
+    lateinit var deleteMenuItem: MenuItem
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_note_detail, menu)
+        menu?.let {
+            deleteMenuItem = it.findItem(R.id.actionDelete)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.home) {
-            onBackPressed()
-            true
-        } else if (item.itemId == R.id.actionAttachImage) {
-            PickImageDialog.build(PickSetup()).show(this@NotesDetailsActivity)
-            true
-        } else
-            super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.home -> {
+                onBackPressed()
+                true
+            }
+            R.id.actionDelete -> {
+                viewModel.deleteNote(note).observe(
+                    this,
+                    Observer {
+                        finish()
+                    }
+                )
+                true
+            }
+            R.id.actionAttachImage -> {
+                PickImageDialog.build(PickSetup()).show(this@NotesDetailsActivity)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

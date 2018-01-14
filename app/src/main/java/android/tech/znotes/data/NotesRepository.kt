@@ -58,4 +58,20 @@ class NotesRepository(var db: NotesDatabase) {
         })
         return mutableLiveData
     }
+
+    fun deleteNote(note: Note): LiveData<Int> {
+        val mutableLiveData = MutableLiveData<Int>()
+        Single.fromCallable {
+            val photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(note.photoPath)
+            photoRef.delete()
+            db.noteDao().delete(note)
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ noRowsDeleted ->
+                Timber.tag("DB").d("deleted record with $noRowsDeleted number of rows deleted")
+                mutableLiveData.value = noRowsDeleted
+            }, { e -> e.printStackTrace() })
+        return mutableLiveData
+    }
 }

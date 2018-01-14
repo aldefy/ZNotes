@@ -23,9 +23,9 @@
     />
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lavProgress"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/margin_craziest"
             android:layout_margin="@dimen/margin_default"
-            android:layout_height="@dimen/margin_default"
+            android:layout_height="@dimen/margin_crazy"
             android:layout_centerInParent="true"
             app:lottie_autoPlay="true"
             app:lottie_fileName="progress.json"

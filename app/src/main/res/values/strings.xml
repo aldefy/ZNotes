@@ -8,4 +8,7 @@
     <string name="attach_image">Attach image</string>
     <string name="search_hint">Search for notes</string>
     <string name="saving_note">Saving note</string>
+    <string name="add_note">Add note</string>
+    <string name="edit_note">Edit note</string>
+    <string name="delete">Delete</string>
 </resources>

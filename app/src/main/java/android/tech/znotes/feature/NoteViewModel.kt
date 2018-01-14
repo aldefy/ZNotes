@@ -21,4 +21,8 @@ class NoteViewModel @Inject constructor(var repo: NotesRepository) : ViewModel()
     fun uploadNotePhoto(title: String, bitmap: Bitmap): LiveData<UploadResult> {
         return repo.uploadPicture(bitmap = bitmap, title = title)
     }
+
+    fun deleteNote(note: Note): LiveData<Int> {
+        return repo.deleteNote(note)
+    }
 }

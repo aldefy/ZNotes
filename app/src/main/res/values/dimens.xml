@@ -8,4 +8,5 @@
     <dimen name="title_text_size">16sp</dimen>
     <dimen name="button">48dp</dimen>
     <dimen name="margin_crazy">112dp</dimen>
+    <dimen name="margin_craziest">280dp</dimen>
 </resources>
