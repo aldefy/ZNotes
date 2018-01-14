@@ -1,4 +1,4 @@
-package wellthy.care.di.module
+package android.tech.znotes.di.module
 
 import android.tech.znotes.feature.detail.NotesDetailsActivity
 import android.tech.znotes.feature.notes.NotesListActivity

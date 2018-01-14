@@ -20,4 +20,9 @@
         <item name="android:textSize">@dimen/default_text</item>
     </style>
 
+    <style name="ProgressDialog" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 </resources>

@@ -10,11 +10,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbarLayout"
+
+
+        <FrameLayout
+                android:id="@+id/toolbar_container"
                 android:layout_width="match_parent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                android:layout_height="96dp">
+                android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -23,10 +24,15 @@
                     app:elevation="@dimen/default_elevation"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:title="@string/app_name"
             />
-        </android.support.design.widget.CollapsingToolbarLayout>
 
+            <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/searchView"
+                    android:textColor="@color/black_55"
+                    android:layout_width="match_parent"
+                    android:textColorHint="@color/black_55"
+                    android:layout_height="wrap_content"/>
+        </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -39,7 +45,6 @@
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvNotes"
                 android:layout_width="match_parent"
-                android:paddingTop="@dimen/margin_big"
                 tools:listitem="@layout/item_rv_note"
                 android:layout_height="match_parent"/>
 
@@ -50,9 +55,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/fab"
             app:fabSize="normal"
-            app:layout_anchor="@+id/collapsingToolbarLayout"
+            app:layout_anchor="@+id/rvNotes"
             app:layout_anchorGravity="bottom|end"
             app:rippleColor="@color/ripple"
+            app:layout_behavior="android.tech.znotes.helpers.FABScrollMagicHelper"
             app:elevation="@dimen/default_elevation"
             app:srcCompat="@drawable/ic_add_white_24dp"
             android:layout_margin="@dimen/margin_default"

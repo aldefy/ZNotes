@@ -6,4 +6,6 @@
     <string name="note_content_hint">Note</string>
     <string name="save">Save</string>
     <string name="attach_image">Attach image</string>
+    <string name="search_hint">Search for notes</string>
+    <string name="saving_note">Saving note</string>
 </resources>

@@ -4,5 +4,5 @@ import android.view.View
 
 interface RVAdapterItemClickListener {
     fun onClick(pos: Int)
-    fun onClick(pos: Int, view: View)
+    fun onClick(pos: Int, view: View) = Any()
 }

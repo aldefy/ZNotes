@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "313478716979",
+    "firebase_url": "https://znotes-95ec1.firebaseio.com",
+    "project_id": "znotes-95ec1",
+    "storage_bucket": "znotes-95ec1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313478716979:android:eda62637d819b9de",
+        "android_client_info": {
+          "package_name": "android.tech.znotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313478716979-qthuu9rdki1q0bcqg2tijpq9n8h983ft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "android.tech.znotes",
+            "certificate_hash": "555c9a4730373384bc8c99404a1db9b5422ac34d"
+          }
+        },
+        {
+          "client_id": "313478716979-f9thh7vnjsihemkkk3it8gk7nqibrqs8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUQXnw8I0FOsXsAhFDCI5dFXlV9eaCzvc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313478716979-f9thh7vnjsihemkkk3it8gk7nqibrqs8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

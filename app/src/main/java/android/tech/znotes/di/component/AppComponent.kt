@@ -4,8 +4,8 @@ import android.tech.znotes.NotesApp
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
-import wellthy.care.di.module.ActivityModule
-import wellthy.care.di.module.AppModule
+import android.tech.znotes.di.module.ActivityModule
+import android.tech.znotes.di.module.AppModule
 import javax.inject.Singleton
 
 @Singleton

@@ -9,8 +9,11 @@ import android.arch.persistence.room.Query
 @Dao
 interface NoteDao {
 
-    @Query("SELECT * FROM note")
-    fun getNotes(): LiveData<List<Note>>
+    @Query("SELECT * FROM note ORDER BY title ASC")
+    fun getNotesAsc(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM note ORDER BY title DESC")
+    fun getNotesDesc(): LiveData<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(note: Note): Long

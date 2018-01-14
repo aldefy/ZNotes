@@ -1,4 +1,4 @@
-package wellthy.care.di.module
+package android.tech.znotes.di.module
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.persistence.room.Room
