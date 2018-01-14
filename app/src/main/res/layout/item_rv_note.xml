@@ -16,17 +16,17 @@
             android:lines="1"
             android:layout_marginEnd="@dimen/margin_small"
             android:layout_toStartOf="@+id/tvEllapsed"
-            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_small"
             tools:text="Title"
     />
 
     <TextView
-            android:id="@+id/tvTime"
+            android:id="@+id/tvEllapsed"
             android:layout_width="wrap_content"
             android:layout_alignParentEnd="true"
             tools:text="3 hours ago"
-            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_height="wrap_content"
     />
@@ -39,8 +39,8 @@
             android:maxLines="2"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_below="@+id/tvNoteTitle"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
             tools:text="big text\nbigger text"
     />
 

@@ -11,4 +11,8 @@ class NoteViewModel @Inject constructor(var repo: NotesRepository) : ViewModel()
     fun getAllNotes(): LiveData<List<Note>> {
         return repo.getAllNotes()
     }
+
+    fun addNote(note: Note): LiveData<Note> {
+        return repo.addNote(note = note)
+    }
 }
