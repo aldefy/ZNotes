@@ -9,5 +9,5 @@
           android:title="@string/sort"
           android:orderInCategory="200"
           app:showAsAction="always"
-          android:icon="@drawable/ic_sort_by_alpha_white_24dp"/>
+          android:icon="@drawable/ic_sort_white_24dp"/>
 </menu>

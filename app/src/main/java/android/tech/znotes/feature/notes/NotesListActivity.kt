@@ -3,6 +3,7 @@ package android.tech.znotes.feature.notes
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.tech.znotes.R
@@ -15,6 +16,7 @@ import android.tech.znotes.helpers.DividerItemDecoration
 import android.tech.znotes.helpers.RVAdapterItemClickListener
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_list_notes.*
@@ -25,7 +27,8 @@ class NotesListActivity : AppCompatActivity(), RVAdapterItemClickListener {
     private lateinit var notesList: ArrayList<Note>
     @Inject lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy { ViewModelProviders.of(this@NotesListActivity, viewModelFactory).get(NoteViewModel::class.java) }
-    private var sort: Boolean = true
+    private lateinit var sort: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this@NotesListActivity)
         super.onCreate(savedInstanceState)
@@ -34,11 +37,12 @@ class NotesListActivity : AppCompatActivity(), RVAdapterItemClickListener {
         adapter = NotesRVAdapter(notesList)
         adapter.setOnItemClickListener(this@NotesListActivity)
         initViews()
+        sort = ""
         fetchData(sort)
     }
 
-    private fun fetchData(sort: Boolean) {
-        viewModel.getAllNotes(sort = sort).observe(
+    private fun fetchData(sort: String) {
+        viewModel.getNotes(sort = sort).observe(
             this,
             Observer { data ->
                 run {
@@ -94,6 +98,34 @@ class NotesListActivity : AppCompatActivity(), RVAdapterItemClickListener {
         startActivity(NotesDetailsActivity.newIntent(this@NotesListActivity, adapter.getItemAtPos(pos)))
     }
 
+    private fun showSortDialog() {
+        val sortDialogBuilder = AlertDialog.Builder(this@NotesListActivity)
+        sortDialogBuilder.setTitle("Sort")
+
+        val arrayAdapter = ArrayAdapter<String>(this@NotesListActivity, android.R.layout.select_dialog_singlechoice)
+        arrayAdapter.add("Title ascending")
+        arrayAdapter.add("Title descending")
+        arrayAdapter.add("Created at ascending")
+        arrayAdapter.add("Created at descending")
+        arrayAdapter.add("Has Photo attached")
+        sortDialogBuilder.setNegativeButton("cancel", { dialog, _ -> dialog.dismiss() })
+
+        sortDialogBuilder.setAdapter(arrayAdapter, { dialogInterface, which ->
+            sort = when (which) {
+                0 -> "Title ascending"
+                1 -> "Title descending"
+                2 -> "Created at ascending"
+                3 -> "Created at descending"
+                4 -> "Has Photo attached"
+                else -> {
+                    "Title ascending"
+                }
+            }
+            fetchData(sort)
+        })
+        sortDialogBuilder.show()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_notes_list, menu)
         val item = menu?.findItem(R.id.actionSearch)
@@ -103,8 +135,7 @@ class NotesListActivity : AppCompatActivity(), RVAdapterItemClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == R.id.actionSort) {
-            sort = !sort
-            fetchData(sort)
+            showSortDialog()
             true
         } else
             super.onOptionsItemSelected(item)

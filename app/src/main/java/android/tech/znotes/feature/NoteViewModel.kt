@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class NoteViewModel @Inject constructor(var repo: NotesRepository) : ViewModel() {
 
-    fun getAllNotes(sort: Boolean): LiveData<List<Note>> {
+    fun getNotes(sort: String): LiveData<List<Note>> {
         return repo.getAllNotes(sort = sort)
     }
 

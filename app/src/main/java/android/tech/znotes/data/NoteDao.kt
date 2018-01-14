@@ -11,10 +11,19 @@ import android.arch.persistence.room.Query
 interface NoteDao {
 
     @Query("SELECT * FROM note ORDER BY title ASC")
-    fun getNotesAsc(): LiveData<List<Note>>
+    fun getNotesAscByTitle(): LiveData<List<Note>>
 
     @Query("SELECT * FROM note ORDER BY title DESC")
-    fun getNotesDesc(): LiveData<List<Note>>
+    fun getNotesDescByTitle(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM note ORDER BY recordedAt ASC")
+    fun getNotesAscByDate(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM note ORDER BY recordedAt DESC")
+    fun getNotesDescByDate(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM note WHERE photoPath IS NOT ''")
+    fun getNotesByPhotoAttachments(): LiveData<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(note: Note): Long

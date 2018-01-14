@@ -15,10 +15,13 @@ class NotesRepository(var db: NotesDatabase) {
     /**
      * Gets all notes from db
      */
-    fun getAllNotes(sort: Boolean): LiveData<List<Note>> {
+    fun getAllNotes(sort: String): LiveData<List<Note>> {
         return when (sort) {
-            true -> db.noteDao().getNotesAsc()
-            false -> db.noteDao().getNotesDesc()
+            "Title ascending" -> db.noteDao().getNotesAscByTitle()
+            "Title descending" -> db.noteDao().getNotesDescByTitle()
+            "Created at ascending" -> db.noteDao().getNotesAscByDate()
+            "Created at descending" -> db.noteDao().getNotesDescByDate()
+            else -> db.noteDao().getNotesByPhotoAttachments()
         }
     }
 
