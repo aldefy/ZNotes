@@ -14,6 +14,51 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+ext {
+    versions = [
+            dagger        : '2.11',
+            archComponents: '1.0.0',
+            timber        : '4.5.1',
+            logger        : '2.1.1',
+    ]
+
+    archCompDeps = [
+            runtime   : "android.arch.lifecycle:runtime:$versions.archComponents",
+            extensions: "android.arch.lifecycle:extensions:$versions.archComponents"
+    ]
+
+    loggingDeps = [
+            logger: "com.orhanobut:logger:$versions.logger",
+            timber: "com.jakewharton.timber:timber:$versions.timber"
+    ]
+
+    databaseDep = [
+            roomRxjava2: "android.arch.persistence.room:rxjava2:$versions.archComponents",
+            room       : "android.arch.persistence.room:runtime:$versions.archComponents"
+    ]
+    daggerDeps = [
+            dagger                : "com.google.dagger:dagger:$versions.dagger",
+            dagger_android_support: "com.google.dagger:dagger-android-support:$versions.dagger",
+            annotationJavaX       : "javax.annotation:jsr250-api:1.0"
+    ]
+    daggerCompilerDeps = [
+            dagger_compiler         : "com.google.dagger:dagger-compiler:$versions.dagger",
+            dagger_android_processor: "com.google.dagger:dagger-android-processor:$versions.dagger"
+    ]
+
+    databaseDep = [
+            roomRxjava2: "android.arch.persistence.room:rxjava2:$versions.archComponents",
+            room       : "android.arch.persistence.room:runtime:$versions.archComponents"
+    ]
+
+    dbLib = databaseDep.values()
+    daggerLibs = daggerDeps.values()
+    loggingLibs = loggingDeps.values()
+    archCompLibs = archCompDeps.values()
+    daggerCompilerLibs = daggerCompilerDeps.values()
+    roomCompiler = "android.arch.persistence.room:compiler:$versions.archComponents"
+    archCompCompiler = "android.arch.lifecycle:compiler:$versions.archComponents"
+}
 
 allprojects {
     repositories {

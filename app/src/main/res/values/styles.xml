@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Title">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/black_75</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="SubTitle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/black_55</item>
+        <item name="android:textSize">@dimen/default_text</item>
+    </style>
+
 </resources>
